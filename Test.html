@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      margin: 0%;
+      display: grid;
+      place-content: center;
+      /* flex-direction: column; */
+      min-height: 100vh;
+      font-family: sans-serif;
+      background-image: url("https://watermark.lovepik.com/photo/20211208/large/lovepik-summer-travel-background-picture_501594379.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+
+    }
+
+    .user {
+      display: flex;
+      gap: 15px;
+      background-color: rgb(67, 190, 155);
+      border-radius: 10px;
+      padding: 1rem;
+      align-items: center;
+      margin: 1.5rem;
+    }
+
+    img {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    .new-user {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 1.3rem;
+    }
+    .new-user input {
+      font-size: 1.5rem;
+    }
+
+    .new-user button {
+      font-size: 1.5rem;
+    }
+  </style>
+  <body>
+    <h1></h1>
+    <div class="new-user">
+
+
+      <input class="search" type="text" placeholder="Name" />
+      <button class="btn" onclick="searchName()">search where to go?</button>
+    </div>
+    <section class="account-users"></section>
+
+    <script>
+      
+            const AllUsers = ({ id, destination, date, activities, accommodation, notes, image }) => {
+              document.querySelector(".account-users").innerHTML += `
+                  <div class="user">
+                <img
+                  src="${image}"
+                  alt=""
+                />
+              <div>
+                
+                <p><span>id: </span>${id}</p>
+                <p><span>Destination: </span>${destination}</p>
+                <p><span>activities: </span>${activities}</p>
+                <p><span>accommodation: </span>${accommodation}</p>
+                <p><span>notes: </span>${notes}</p>
+                <p><span>time: </span>${new Date(date).toDateString()}</p>
+                <button onclick=clickButton(${id})>Delete</button>
+              </div>
+            </div>`;
+            };
+
+            const fetchData = () =>
+              fetch("https://64f6f42a9d7754084952d8c3.mockapi.io/data")
+                .then((a) => a.json())
+                .then((b) => {
+                  document.querySelector(".account-users").innerHTML = "";
+                  b.forEach(AllUsers);
+                });
+
+            function clickButton(id) {
+              console.log(`deleting...${id}`);
+              fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data${id}`, {
+                method: "Delete",
+
+              // lorry and ferrari
+              }).then(() => fetchData());
+            }
+
+
+            function addUser(){
+              console.log("adding....")
+              const name = document.querySelector(".user").value
+              const avatar = document
+            }
+
+
+            function searchName(){
+              let input = document.querySelector(".search").value
+              fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data?name=${input}`)
+              .then((a) => a.json())
+                .then((b) => {
+                  document.querySelector(".account-users").innerHTML = "";
+                  b.forEach(AllUsers);
+                });
+            }
+
+            // function searchId() {
+            //   const input = document.querySelector('.input')
+            //   btn.addEventListener('click', () => {
+            //     search.fetchData.toggle("active")
+            //     input.focus()})
+            //   }
+
+
+            fetchData();
+            // function Users(){
+
+            // }
+        
+    </script>
+  </body>
+</html>
