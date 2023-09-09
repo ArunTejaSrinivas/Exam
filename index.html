@@ -129,9 +129,9 @@
       <div><input class="Image" type="text" placeholder="Image URL" /></div>
       <div><input class="Destination" type="text" placeholder="destination" /></div>
       <div><input class="Activities" type="text" placeholder="activities" /></div>
-      <div><input class="accommodation" type="text" placeholder="accommodation" /></div>
+      <div><input class="Accommodation" type="text" placeholder="accommodation" /></div>
       <div><input class="Notes" type="text" placeholder="notes" /></div>
-     <div> <button onclick="addPlace()">Apply</button></div>
+     <div> <button onclick="NewBlog()">Apply</button></div>
     </div>
 
     <script>
@@ -187,6 +187,31 @@
         fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data/${Id}`, {
           method: "Delete",
         }).then(() => fetchData());
+      }
+
+
+
+      function NewBlog(){
+        const imageUrl = document.querySelector(".Image").value
+        const destination = document.querySelector(".Destination").value
+        const activities = document.querySelector(".Activities").value
+        const accommodation = document.querySelector(".Accommodation").value
+        const notes = document.querySelector(".Notes").value
+        const date = new Date();
+
+        const onenewBlog = {imageUrl, destination, activities, accommodation, notes, date};
+
+        console.log(onenewBlog);
+
+
+        fetch("https://64f6f42a9d7754084952d8c3.mockapi.io/data", {
+          method: 'POST',
+          body: JSON.stringify(onenewBlog),
+          headers: {
+            "Content-type": "application/json"
+          }
+        
+        }).then(() => fetchData())
       }
 
       fetchData();
