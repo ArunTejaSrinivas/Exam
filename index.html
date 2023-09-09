@@ -4,137 +4,222 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <style>
-    body {
-      margin: 0%;
-      display: grid;
-      place-content: center;
-      /* flex-direction: column; */
-      min-height: 100vh;
-      font-family: sans-serif;
-      background-image: url("https://watermark.lovepik.com/photo/20211208/large/lovepik-summer-travel-background-picture_501594379.jpg");
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
+    <style>
+      body {
+        margin: 0;
+        display: grid;
+        min-height: 100vh;
+        place-content: center;
+        background-image: url("https://wallpapersmug.com/download/3840x2160/7d6744/boat-holiday-sea-aerial-view.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+
+      img {
+        object-fit: cover;
+        height: 12rem;
+        width: 23rem;
+      }
+
+      .places {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 1rem;
+      }
+
+      .info {
+        background: white;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin: 3rem;
+        /* padding: 1rem; */
+      }
+
+      span {
+        font-weight: bold;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .data-change {
+        margin: 1rem;
+      }
+
+      .search {
+        place-content: center;
+      }
+
+      .btn{
+        width: 5rem;
+       height: 2.8rem;
+       background-color: yellow;
+       border-radius: .3rem;
 
     }
 
-    .user {
+    .searching {
+      width: 30rem;
+      height: 2.5rem;
+      border-radius: .3rem;
+      border: none;
+    }
+    .inputs {
       display: flex;
-      gap: 15px;
-      background-color: rgb(67, 190, 155);
-      border-radius: 10px;
-      padding: 1rem;
-      align-items: center;
-      margin: 1.5rem;
-    }
-
-    img {
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-    }
-
-    span {
-      font-weight: bold;
-    }
-
-    .new-user {
-      display: flex;
+      justify-content: center;
       flex-direction: column;
-      gap: 0.5rem;
-      text-align: center;
-      padding: 1.3rem;
-    }
-    .new-user input {
-      font-size: 1.5rem;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 15rem;
     }
 
-    .new-user button {
-      font-size: 1.5rem;
+    h1 {
+      color: rgb(255, 255, 0);
+      font-size: 3rem;
+      font-family: cursive;
     }
-  </style>
+
+    .place{
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 15rem;
+    }
+
+    .place input{
+      width: 30rem;
+      height: 2.5rem;
+      border-radius: .3rem;
+      border: none;
+    }
+
+    .place button {
+      width: 5rem;
+       height: 2.8rem;
+       background-color: yellow;
+       border-radius: .3rem;
+    }
+
+    </style>
+  </head>
   <body>
-    <h1></h1>
-    <div class="new-user">
-
-
-      <input class="search" type="text" placeholder="Name" />
-      <button class="btn" onclick="searchName()">search where to go?</button>
+    
+    <div class="inputs">
+      <div>
+        <h1>find your next tour!</h1>
+      </div>
+     <div class="shadow">
+      <input class="searching" type="text" placeholder="Search Place" />
+      <button class="btn" onclick="search()">Search</button>
+     </div>
     </div>
-    <section class="account-users"></section>
+
+    <section class="tourist-places">
+      <div class="places"></div>
+    </section>
+
+    <div class="place">
+      <div><h1>Add new blog to vist</h1></div>
+      <div><input class="Image" type="text" placeholder="Image URL" /></div>
+      <div><input class="Destination" type="text" placeholder="destination" /></div>
+      <div><input class="Activities" type="text" placeholder="activities" /></div>
+      <div><input class="accommodation" type="text" placeholder="accommodation" /></div>
+      <div><input class="Notes" type="text" placeholder="notes" /></div>
+     <div> <button onclick="addPlace()">Apply</button></div>
+    </div>
 
     <script>
-      
-            const AllUsers = ({ id, destination, date, activities, accommodation, notes, image }) => {
-              document.querySelector(".account-users").innerHTML += `
-                  <div class="user">
-                <img
-                  src="${image}"
-                  alt=""
-                />
-              <div>
-                
-                <p><span>id: </span>${id}</p>
-                <p><span>Destination: </span>${destination}</p>
-                <p><span>activities: </span>${activities}</p>
-                <p><span>accommodation: </span>${accommodation}</p>
-                <p><span>notes: </span>${notes}</p>
-                <p><span>time: </span>${new Date(date).toDateString()}</p>
-                <button onclick=clickButton(${id})>Delete</button>
-              </div>
-            </div>`;
-            };
+      function Touristplaces({
+        id,
+        destination,
+        date,
+        activities,
+        accommodation,
+        notes,
+        imageUrl,
+      }) {
+        document.querySelector(".places").innerHTML += `
+          <div class="info">
+            <img src="${imageUrl}" alt="">
+            <div class="data-change">
+            <p><span>Id: </span>${id}</p>
+            <p><span>Destination: </span>${destination}</p>
+            <p><span>Activities: </span>${activities}</p>
+            <p><span>accommodation: </span>${accommodation}</p>
+            <p><span>Notes: </span>${notes}</p>
+            <p><span>Date: </span>${date}</p>
+            <button onclick="Delete(${id})">Delete</button>
+            </div>
+        </div>
+        `;
+      }
 
-            const fetchData = () =>
-              fetch("https://64f6f42a9d7754084952d8c3.mockapi.io/data")
-                .then((a) => a.json())
-                .then((b) => {
-                  document.querySelector(".account-users").innerHTML = "";
-                  b.forEach(AllUsers);
-                });
+      const fetchData = () => {
+        fetch("https://64f6f42a9d7754084952d8c3.mockapi.io/data")
+          .then((Places) => Places.json())
+          .then((data) => {
+            document.querySelector(".places").innerHTML = "";
+            data.forEach(Touristplaces);
+          });
+      };
 
-            function clickButton(id) {
-              console.log(`deleting...${id}`);
-              fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data${id}`, {
-                method: "Delete",
+      function search() {
+        const searched = document.querySelector(".searching").value;
+        fetch(
+          `https://64f6f42a9d7754084952d8c3.mockapi.io/data?destination=${searched}`
+        )
+          .then((searchPlace) => searchPlace.json())
 
-              // lorry and ferrari
-              }).then(() => fetchData());
-            }
+          .then((placeData) => {
+            document.querySelector(".places").innerHTML = "";
+            placeData.forEach(Touristplaces);
+          });
+        console.log("searching ......");
+      }
 
+      function Delete(Id) {
+        fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data/${Id}`, {
+          method: "Delete",
+        }).then(() => fetchData());
+      }
 
-            function addUser(){
-              console.log("adding....")
-              const name = document.querySelector(".user").value
-              const avatar = document
-            }
+      async function addPlace() {
+        const image = document.querySelector(".Image").value;
+        const destination = document.querySelector(".Destination").value;
+        const activities = document.querySelector(".Activities").value;
+        const accommodation = document.querySelector(".accommodation").value;
+        const notes = document.querySelector(".Notes").value;
+        const date = new Date();
 
+        const alldata = [{accommodation, activities, date, destination, image, notes}];
+        console.log(alldata);
+        let res = postdata(alldata);
+        console.log(res);
+      }
+      let postdata = async (alldata) => {
+        let res = await fetch(
+          "https://64f6f42a9d7754084952d8c3.mockapi.io/data",
+          {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              "Content-type": "application/json;"
+            },
+            body: JSON.stringify(alldata),
+          }
+        );
+        let Response = await res.json();
+        return Response;
+      };
+      // function upDate() {}
 
-            function searchName(){
-              let input = document.querySelector(".search").value
-              fetch(`https://64f6f42a9d7754084952d8c3.mockapi.io/data?name=${input}`)
-              .then((a) => a.json())
-                .then((b) => {
-                  document.querySelector(".account-users").innerHTML = "";
-                  b.forEach(AllUsers);
-                });
-            }
-
-            // function searchId() {
-            //   const input = document.querySelector('.input')
-            //   btn.addEventListener('click', () => {
-            //     search.fetchData.toggle("active")
-            //     input.focus()})
-            //   }
-
-
-            fetchData();
-            // function Users(){
-
-            // }
-        
+      fetchData();
     </script>
   </body>
 </html>
